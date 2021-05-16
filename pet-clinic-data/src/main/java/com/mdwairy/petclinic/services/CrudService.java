@@ -6,7 +6,7 @@ import java.util.Set;
 
 public interface CrudService<T extends BaseEntity, ID extends Long> {
     T findById(ID id);
-    T Save(ID id, T type);
+    T save(ID id, T type);
     Set<T> findAll();
     void delete(T type);
     void deleteById(ID id);
