@@ -1,4 +1,4 @@
-package com.mdwairy.petclicnic.model;
+package com.mdwairy.petclinic.model;
 
 import lombok.Getter;
 import lombok.Setter;
