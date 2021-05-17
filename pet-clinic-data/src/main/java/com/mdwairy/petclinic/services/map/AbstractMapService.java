@@ -1,23 +1,28 @@
 package com.mdwairy.petclinic.services.map;
 
 import com.mdwairy.petclinic.model.BaseEntity;
-import com.mdwairy.petclinic.services.CrudService;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
 
-    protected Map<ID, T> map = new HashMap<>();
+    protected Map<Long, T> map = new HashMap<>();
 
     public T findById(ID id) {
         return map.get(id);
     }
 
-    public T save(ID id, T type) {
-        return map.put(id, type);
+    public T save(T object) {
+        if (object != null) {
+            if (object.getId() == null) {
+                object.setId(getNextId());
+            }
+            map.put(object.getId(), object);
+        }
+        else {
+            throw new RuntimeException("Object cannot be null");
+        }
+        return map.get(object.getId());
     }
 
     public Set<T> findAll() {
@@ -30,6 +35,13 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
 
     public void deleteById(ID id) {
         map.remove(id);
+    }
+
+    private Long getNextId() {
+        if (!map.isEmpty()) {
+            return Collections.max(map.keySet()) + 1;
+        }
+        return 1L;
     }
 
 }
