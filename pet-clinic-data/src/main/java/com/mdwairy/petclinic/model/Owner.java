@@ -9,6 +9,9 @@ import java.util.Set;
 @Setter
 public class Owner extends Person {
 
+    private String address;
+    private String city;
+    private String phoneNumber;
     private Set<Pet> pets;
 
 }
