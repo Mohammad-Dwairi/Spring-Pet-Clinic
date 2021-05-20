@@ -14,9 +14,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mdwairy</groupId>
-    <artifactId>petClicnic</artifactId>
+    <artifactId>petClinic</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>petClicnic</name>
+    <name>petClinic</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
