@@ -4,12 +4,14 @@ import com.mdwairy.petclinic.model.Pet;
 import com.mdwairy.petclinic.repositories.PetRepository;
 import com.mdwairy.petclinic.services.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Profile("springjpa")
 public class PetServiceJpa implements PetService {
 
     private final PetRepository petRepository;

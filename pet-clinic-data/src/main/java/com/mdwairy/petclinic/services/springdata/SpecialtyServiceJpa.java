@@ -4,12 +4,14 @@ import com.mdwairy.petclinic.model.Speciality;
 import com.mdwairy.petclinic.repositories.SpecialtyRepository;
 import com.mdwairy.petclinic.services.SpecialityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Profile("springjpa")
 public class SpecialtyServiceJpa implements SpecialityService {
 
     private final SpecialtyRepository specialtyRepository;
