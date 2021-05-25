@@ -19,7 +19,7 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String ownerHome(Model model) {
         model.addAttribute("owners", ownerService.findAll());
         return "owners/home";
@@ -30,5 +30,7 @@ public class OwnerController {
         model.addAttribute("owner", ownerService.findById(ownerId));
         return "owners/ownerDetails";
     }
+
+
 
 }
