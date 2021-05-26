@@ -20,9 +20,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OwnerServiceJpaTest {
+
     final String LAST_NAME = "Dwairi";
     final Long ID = 1L;
-
 
     @Mock
     OwnerRepository ownerRepository;
@@ -34,20 +34,15 @@ class OwnerServiceJpaTest {
 
     @BeforeEach
     void setUp() {
-        returnedOwner = new Owner();
-        returnedOwner.setId(ID);
-        returnedOwner.setLastName(LAST_NAME);
+        returnedOwner = Owner.builder().id(ID).lastName(LAST_NAME).build();
     }
 
     @Test
     void findAll() {
         Set<Owner> returnedOwners = new HashSet<>();
 
-        Owner owner1 = new Owner();
-        owner1.setId(ID);
-
-        Owner owner2 = new Owner();
-        owner2.setId(2L);
+        Owner owner1 = Owner.builder().id(1L).build();
+        Owner owner2 = Owner.builder().id(2L).lastName(LAST_NAME).build();
 
         returnedOwners.add(owner1);
         returnedOwners.add(owner2);
@@ -89,8 +84,7 @@ class OwnerServiceJpaTest {
     void saveWithId() {
         when(ownerRepository.save(any())).thenReturn(returnedOwner);
 
-        Owner owner = new Owner();
-        owner.setId(ID);
+        Owner owner = Owner.builder().id(ID).build();
 
         Owner savedOwner = ownerServiceJpa.save(owner);
 
