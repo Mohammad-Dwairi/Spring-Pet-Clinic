@@ -56,16 +56,6 @@ class OwnerControllerTest {
     }
 
     @Test
-    void ownerHome() throws Exception {
-        when(ownerService.findAll()).thenReturn(owners);
-
-        mockMvc.perform(get("/owners"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("owners/home"))
-                .andExpect(model().attribute("owners", hasSize(owners.size())));
-    }
-
-    @Test
     void ownerDetails() throws Exception {
         when(ownerService.findById(anyLong())).thenReturn(returnedOwner);
         mockMvc.perform(get("/owners/123"))
