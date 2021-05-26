@@ -5,11 +5,12 @@ import com.mdwairy.petclinic.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/owners")
@@ -28,10 +29,33 @@ public class OwnerController {
         webDataBinder.setDisallowedFields("id");
     }
 
-    @RequestMapping("/find")
-    public String findOwners(Model model) {
+    @GetMapping("/find")
+    public String initFindOwnersForm(Model model) {
         model.addAttribute("owner", Owner.builder().build());
         return "/owners/findOwners";
+    }
+
+    @PostMapping
+    public String processFindOwnersForm(@ModelAttribute("owner") Owner owner, BindingResult bindingResult, Model model) {
+
+        if (owner.getLastName() == null) {
+            Set<Owner> results = ownerService.findAll();
+            model.addAttribute("owners", results);
+            return "owners/ownersList";
+        }
+
+        List<Owner> results = ownerService.findAllByLastNameLike("%" + owner.getLastName() + "%");
+
+        if (results.isEmpty()) {
+            bindingResult.rejectValue("lastName", "notFound", "not found");
+            return "owners/findOwners";
+        }
+        else if (results.size() == 1) {
+            return "redirect:/owners/" + results.get(0).getId();
+        }
+
+        model.addAttribute("owners", results);
+        return "owners/ownersList";
     }
 
     @GetMapping("/{ownerId}")

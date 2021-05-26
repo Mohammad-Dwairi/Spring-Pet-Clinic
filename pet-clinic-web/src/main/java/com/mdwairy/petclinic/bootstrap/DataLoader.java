@@ -79,6 +79,15 @@ public class DataLoader implements CommandLineRunner {
 
         ownerService.save(owner2);
 
+        Owner owner3 = Owner.builder()
+                .firstName("John")
+                .lastName("Glenanne")
+                .address("123 Brickerel")
+                .city("LA")
+                .phoneNumber("1231231234").build();
+
+        ownerService.save(owner3);
+
         Visit catVisit = Visit.builder().pet(fionasCat).date(LocalDate.now()).description("Sneezy Kitty").build();
         visitService.save(catVisit);
 
