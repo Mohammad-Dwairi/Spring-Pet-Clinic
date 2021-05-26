@@ -1,5 +1,6 @@
 package com.mdwairy.petclinic.controllers;
 
+import com.mdwairy.petclinic.model.Owner;
 import com.mdwairy.petclinic.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,10 +28,10 @@ public class OwnerController {
         webDataBinder.setDisallowedFields("id");
     }
 
-    @GetMapping
-    public String ownerHome(Model model) {
-        model.addAttribute("owners", ownerService.findAll());
-        return "owners/home";
+    @RequestMapping("/find")
+    public String findOwners(Model model) {
+        model.addAttribute("owner", Owner.builder().build());
+        return "/owners/findOwners";
     }
 
     @GetMapping("/{ownerId}")
@@ -38,7 +39,6 @@ public class OwnerController {
         model.addAttribute("owner", ownerService.findById(ownerId));
         return "owners/ownerDetails";
     }
-
 
 
 }
