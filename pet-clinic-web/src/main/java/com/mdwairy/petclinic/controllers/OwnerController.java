@@ -64,5 +64,18 @@ public class OwnerController {
         return "owners/ownerDetails";
     }
 
+    @GetMapping("/new")
+    public String initNewOwnerForm(Model model) {
+        model.addAttribute("owner", Owner.builder().build());
+        return "owners/createOrUpdateOwnerForm";
+    }
 
+    @PostMapping("/new")
+    public String processNewOwnerForm(@ModelAttribute Owner owner, BindingResult result) {
+        if (result.hasErrors()) {
+            return "owners/createOrUpdateOwnerForm";
+        }
+        Owner savedOwner = ownerService.save(owner);
+        return "redirect:/owners/" + savedOwner.getId();
+    }
 }
