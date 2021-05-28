@@ -1,22 +1,22 @@
 package com.mdwairy.petclinic.controllers;
 
 import com.mdwairy.petclinic.model.Owner;
+import com.mdwairy.petclinic.model.Pet;
 import com.mdwairy.petclinic.model.PetType;
 import com.mdwairy.petclinic.services.OwnerService;
 import com.mdwairy.petclinic.services.PetService;
 import com.mdwairy.petclinic.services.PetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @Controller
-@RequestMapping("/owners/{ownerId}")
+@RequestMapping("/owners/{ownerId}/pets")
+@SessionAttributes("pet")
 public class PetController {
 
     private final PetService petService;
@@ -36,8 +36,8 @@ public class PetController {
     }
 
     @ModelAttribute("owner")
-    public Owner addModelOwner(@PathVariable Long ownerId) {
-        return ownerService.findById(ownerId);
+    public void addModelOwner(@PathVariable Long ownerId, Model model) {
+        model.addAttribute("owner", ownerService.findById(ownerId));
     }
 
     @InitBinder("owner")
@@ -45,4 +45,22 @@ public class PetController {
         dataBinder.setDisallowedFields("id");
     }
 
+    @GetMapping("/new")
+    public String initNewPetForm(@ModelAttribute("owner") Owner owner, Model model) {
+        model.addAttribute("pet", Pet.builder().owner(owner).build());
+        return "pets/createOrUpdatePetForm";
+    }
+
+    @PostMapping("/new")
+    public String processNewPetForm(@ModelAttribute("pet") Pet pet) {
+
+        // Cannot use pet.getOwner().getPets(). because the session is closed (Lazy initialization).
+        Long ownerId = pet.getOwner().getId();
+        Owner owner = ownerService.findById(ownerId);
+
+        owner.getPets().add(pet);
+        petService.save(pet);
+
+        return "redirect:/owners/" + ownerId;
+    }
 }
