@@ -68,7 +68,7 @@ class OwnerControllerTest {
     void initFindOwnersForm() throws Exception {
         mockMvc.perform(get("/owners/find"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/owners/findOwners"))
+                .andExpect(view().name("owners/findOwners"))
                 .andExpect(model().attributeExists("owner"));
     }
 

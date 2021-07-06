@@ -29,10 +29,10 @@ public class OwnerController {
         webDataBinder.setDisallowedFields("id");
     }
 
-    @GetMapping("/find")
+    @GetMapping({"/find", "/find.html"})
     public String initFindOwnersForm(Model model) {
         model.addAttribute("owner", Owner.builder().build());
-        return "/owners/findOwners";
+        return "owners/findOwners";
     }
 
     @PostMapping
