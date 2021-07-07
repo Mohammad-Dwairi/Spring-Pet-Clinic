@@ -1,8 +1,8 @@
 [![CircleCI](https://circleci.com/gh/Mohammad-Dwairi/Spring-Pet-Clinic.svg?style=svg&circle-token=5e1fe1801d3124b5355aba57d250ea82d4178ebd)](https://app.circleci.com/pipelines/github/Mohammad-Dwairi)
 
-#Spring Pet Clinic 
+# Spring Pet Clinic 
 ___
-##Description
+## Description
 
 Spring Pet Clinic is a community-driven project to demonstrate different aspects and best practices of Spring framework.
 
@@ -17,7 +17,7 @@ This repository is connected with [CircleCi](https://circleci.com) for continuou
 
 ![alt text](pet-clinic-home.png)
 ___
-##Used in this project
+## Used in this project
 
 - JDK 11
 - Maven 
@@ -31,7 +31,7 @@ ___
 - WRO4J (Web Resource Optimizer for Java)
 - Junit 5 and Mockito for Testing
 ___
-##Requirements
+## Requirements
 
 - JDK 11
 - Maven
@@ -62,9 +62,9 @@ ___
    ```
    localhost:8080
    ```
-   ###OR use Docker!
+   ### OR use Docker!
 ___
-##Docker
+## Docker
 ### This application is uploaded publicly to Docker Hub, Just pull the image and run it.
 *You must have Docker installed to be able to run the image*
 1. Pull the image from Docker Hub
@@ -90,7 +90,7 @@ ___
   file the first time you run `prod` profile to allow Spring JPA to create database tables based on the entity classes.
 
 ___
-##Credits
+## Credits
 - [spring-petclinic](https://github.com/spring-projects/spring-petclinic)
 - [Spring Framework 5: Beginner to Guru](https://www.udemy.com/course/spring-framework-5-beginner-to-guru/)
 
